@@ -1,0 +1,64 @@
+name: Reference check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 9 * * 1"
+
+jobs:
+  reference-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check arXiv and DOI references
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          refs = pathlib.Path("docs/references.bib").read_text(encoding="utf-8")
+          arxiv_ids = sorted(set(re.findall(r"arXiv:(\d{4}\.\d{4,5})|arxiv\.org/abs/(\d{4}\.\d{4,5})", refs)))
+          arxiv_ids = sorted({x for pair in arxiv_ids for x in pair if x})
+          dois = sorted(set(re.findall(r"doi\s*=\s*\{([^}]+)\}", refs, re.IGNORECASE)))
+
+          failures = []
+
+          for start in range(0, len(arxiv_ids), 25):
+              batch = arxiv_ids[start:start + 25]
+              query = urllib.parse.urlencode({"id_list": ",".join(batch)})
+              url = f"https://export.arxiv.org/api/query?{query}"
+              try:
+                  body = urllib.request.urlopen(url, timeout=30).read().decode("utf-8", "replace")
+              except Exception as exc:
+                  failures.append(f"arXiv batch failed {batch}: {exc}")
+                  continue
+              for arxiv_id in batch:
+                  if arxiv_id not in body:
+                      failures.append(f"arXiv ID not found in API response: {arxiv_id}")
+              time.sleep(3)
+
+          for doi in dois:
+              url = "https://doi.org/" + doi.strip()
+              req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "AbelAI-paper2-reference-check/0.1"})
+              try:
+                  urllib.request.urlopen(req, timeout=30)
+              except urllib.error.HTTPError as exc:
+                  if exc.code >= 400:
+                      failures.append(f"DOI resolver failed {doi}: HTTP {exc.code}")
+              except Exception as exc:
+                  failures.append(f"DOI resolver failed {doi}: {exc}")
+
+          print(f"checked_arxiv={len(arxiv_ids)} checked_doi={len(dois)}")
+          if failures:
+              print("\n".join(failures), file=sys.stderr)
+              raise SystemExit(1)
+          PY

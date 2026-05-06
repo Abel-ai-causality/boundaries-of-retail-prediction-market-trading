@@ -1,0 +1,2 @@
+# No runtime Python dependencies are required for the main release eval.
+# Python 3.11+ standard-library modules are sufficient.

@@ -1,0 +1,53 @@
+{
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "title": "Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab",
+  "description": "Release package for Paper 2 from Abel AI Lab. The artifact contains the manuscript, references, cross-campaign aggregate data, ancillary registries, a release-local paper eval, and preserved engineering primitives from a terminated Path C campaign. Claims are scoped to a single-lab, single-period retrospective of LLM-assisted retail prediction-market trading campaigns.",
+  "creators": [
+    {
+      "name": "Wang, Stephen",
+      "affiliation": "Abel AI Lab"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Abel AI Lab",
+      "type": "ResearchGroup",
+      "affiliation": "Abel AI Lab"
+    }
+  ],
+  "keywords": [
+    "prediction markets",
+    "LLM trading",
+    "ceiling-pin",
+    "anchoring bias",
+    "Abelian methodology",
+    "retrospective",
+    "Polymarket"
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "v0.1.0",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://arxiv.org/abs/TBD",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://github.com/Abel-ai-causality/pm-trading-boundaries",
+      "relation": "isIdenticalTo",
+      "scheme": "url",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://github.com/Abel-ai-causality/pm-trading-boundaries/blob/main/docs/sycophancy-benchmark-marketanchor-v0.1.2.md",
+      "relation": "isRelatedTo",
+      "scheme": "url",
+      "resource_type": "publication-preprint"
+    }
+  ],
+  "notes": "Metadata for Zenodo DOI registration after the GitHub repository is public and a release tag is created. arXiv preprint identifier added when assigned."
+}

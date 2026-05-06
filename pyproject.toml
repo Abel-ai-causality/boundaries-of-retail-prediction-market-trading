@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pm-trading-boundaries"
+version = "0.1.0"
+description = "Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE-CODE"}
+authors = [
+  {name = "Stephen Wang", email = "lab@abel.ai"}
+]
+keywords = [
+  "prediction-markets",
+  "LLM-trading",
+  "anchoring-bias",
+  "retrospective",
+  "Abelian-methodology"
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Abel-ai-causality/pm-trading-boundaries"
+Repository = "https://github.com/Abel-ai-causality/pm-trading-boundaries"
+Issues = "https://github.com/Abel-ai-causality/pm-trading-boundaries/issues"
+
+[tool.setuptools]
+packages = []

@@ -1,0 +1,18 @@
+run_id,instrumentation_level,n_rounds,dominant_finding_class,terminate_no_route,peer_convergence_count,alternative_routes_count,dominant_attack_class,key_finding_one_line
+2026-05-02-0058-pm-live-readiness,full_state_json,57,infrastructure,0,0,0,N/A,Infrastructure rounds harden live/paper safety and data freshness rather than proving trading edge.
+2026-05-03-0014-cron-fill-grounded-truth,full_state_json,5,infrastructure,0,0,22,doc,Infrastructure rounds harden live/paper safety and data freshness rather than proving trading edge.
+2026-05-03-0245-ws-cron-alignment,full_state_json,40,infrastructure,0,9,95,default,Infrastructure rounds harden websocket/cron alignment and only inform math-arb saturation after down-weighting.
+2026-05-03-1710-cross-platform-pilot-b,full_state_json,3,capacity_ceiling,0,0,6,live-trading,"Retail bankroll expansion is constrained by capacity, liquidity, and proof-of-profit gates."
+2026-05-03-1900-profit-search,full_state_json,4,capacity_ceiling,0,0,10,live-trading,"Retail bankroll expansion is constrained by capacity, liquidity, and proof-of-profit gates."
+2026-05-03-2025-crypto-pm-probe,full_state_json,5,math_arb_saturation,22,0,13,c1,"Math-arb routes repeatedly close on freshness, settlement, and capacity blockers."
+2026-05-04-0125-bankruptcy-operator,full_state_json,4,other,4,0,4,benchmark-validity,Sparse or mechanism-specific record; retained for inventory honesty.
+2026-05-04-0125-llm-narrative-trade,full_state_json,4,llm_extraction_ceiling_pin,2,0,3,live-trading,"LLM extraction routes hit grounding, sourceability, or confidence-ceiling attacks before deployment."
+2026-05-04-1716-pm-5k10k-profit,peer_files_only,2,capacity_ceiling,1,0,33,benchmark-validity,"Retail bankroll expansion is constrained by capacity, liquidity, and proof-of-profit gates."
+2026-05-04-1846-pm-10k50k-profit,full_state_json,22,capacity_ceiling,2,18,41,benchmark-validity,"Retail bankroll expansion is constrained by capacity, liquidity, and proof-of-profit gates."
+2026-05-04-llm-deploy-10k,full_state_json,2,llm_extraction_ceiling_pin,8,0,0,c1,"LLM extraction routes hit grounding, sourceability, or confidence-ceiling attacks before deployment."
+2026-05-04-sycophancy-benchmark,full_state_json,4,anchoring_uncertainty,0,0,0,c1,"Anchor sensitivity is present as forecast uncertainty, not a direct tradable edge claim."
+2026-05-05-path-c-1week-probe,full_state_json,4,llm_extraction_ceiling_pin,2,0,1,benchmark-validity,"LLM extraction routes hit grounding, sourceability, or confidence-ceiling attacks before deployment."
+bankruptcy-operator,empty_legacy,2,other,0,0,0,N/A,Sparse or mechanism-specific record; retained for inventory honesty.
+cftc-event-fragmentation,empty_legacy,2,other,0,0,0,N/A,Sparse or mechanism-specific record; retained for inventory honesty.
+crypto-bankruptcy-claims,empty_legacy,2,other,0,0,0,N/A,Sparse or mechanism-specific record; retained for inventory honesty.
+llm-narrative-trade,empty_legacy,2,other,0,0,0,N/A,Sparse or mechanism-specific record; retained for inventory honesty.

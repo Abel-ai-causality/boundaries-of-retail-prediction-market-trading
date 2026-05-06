@@ -1,0 +1,24 @@
+name: Markdown lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install markdownlint-cli
+        run: npm install --global markdownlint-cli
+
+      - name: Run markdownlint
+        run: markdownlint --disable MD013 README.md docs/**/*.md data/**/*.md code/**/*.md CONTRIBUTING.md CHANGELOG.md CODE_OF_CONDUCT.md

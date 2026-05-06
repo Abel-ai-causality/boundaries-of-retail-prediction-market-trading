@@ -1,0 +1,25 @@
+name: Paper eval
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  eval-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run Paper 2 eval
+        run: |
+          score="$(bash code/eval/pm-trading-boundaries-eval.sh)"
+          echo "score=${score}"
+          python3 - "$score" <<'PY'
+          import sys
+          score = float(sys.argv[1])
+          if score < 85:
+              raise SystemExit(f"score below release gate: {score}")
+          PY
+          grep -F "hard_gate_violations=[]" .eval/rbaseline-eval.log
