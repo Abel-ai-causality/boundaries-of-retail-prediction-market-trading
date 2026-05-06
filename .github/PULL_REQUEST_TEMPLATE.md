@@ -12,7 +12,7 @@ Fixes #
 
 ## Tests
 
-- [ ] `bash code/eval/pm-trading-boundaries-eval.sh`
+- [ ] `bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh`
 - [ ] `python3 -m json.tool data/cross-campaign-aggregate.json`
 - [ ] `python3 -m json.tool .zenodo.json`
 - [ ] Citation or reference checks, if applicable

@@ -1,7 +1,7 @@
 {
   "upload_type": "publication",
   "publication_type": "preprint",
-  "title": "Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab",
+  "title": "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective",
   "description": "Release package for Paper 2 from Abel AI Lab. The artifact contains the manuscript, references, cross-campaign aggregate data, ancillary registries, a release-local paper eval, and preserved engineering primitives from a terminated Path C campaign. Claims are scoped to a single-lab, single-period retrospective of LLM-assisted retail prediction-market trading campaigns.",
   "creators": [
     {
@@ -37,13 +37,13 @@
       "resource_type": "publication-preprint"
     },
     {
-      "identifier": "https://github.com/Abel-ai-causality/pm-trading-boundaries",
+      "identifier": "https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading",
       "relation": "isIdenticalTo",
       "scheme": "url",
       "resource_type": "software"
     },
     {
-      "identifier": "https://github.com/Abel-ai-causality/pm-trading-boundaries/blob/main/docs/sycophancy-benchmark-marketanchor-v0.1.2.md",
+      "identifier": "https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading/blob/main/docs/sycophancy-benchmark-marketanchor-v0.1.2.md",
       "relation": "isRelatedTo",
       "scheme": "url",
       "resource_type": "publication-preprint"

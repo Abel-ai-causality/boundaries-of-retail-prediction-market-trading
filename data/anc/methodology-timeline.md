@@ -18,7 +18,7 @@
 
 4. 2026-05-05 spread.
    `path-c-1week-probe` records 4 R0 challenge files.
-   `pm-trading-boundaries` records 5 R0 challenge files.
+   `boundaries-of-retail-prediction-market-trading` records 5 R0 challenge files.
    Both campaigns show that R0 became iterative: challenge, rewrite, re-challenge, then launch.
 
 5. R0 multi-round pattern emergence.

@@ -57,7 +57,7 @@ The main eval uses Python standard-library modules only. Optional local tools:
 Run the paper eval before opening a PR:
 
 ```bash
-bash code/eval/pm-trading-boundaries-eval.sh
+bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh
 cat .eval/rbaseline-eval.log
 ```
 

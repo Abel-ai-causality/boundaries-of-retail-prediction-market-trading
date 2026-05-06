@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the Paper 2 artifact."
-title: "Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab"
+title: "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective"
 type: dataset
 authors:
   - family-names: Wang
@@ -23,10 +23,10 @@ keywords:
   - abelian-methodology
   - retrospective
 license: CC-BY-4.0
-repository-code: "https://github.com/Abel-ai-causality/pm-trading-boundaries"
+repository-code: "https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading"
 preferred-citation:
   type: article
-  title: "Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab"
+  title: "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective"
   authors:
     - family-names: Wang
       given-names: Stephen

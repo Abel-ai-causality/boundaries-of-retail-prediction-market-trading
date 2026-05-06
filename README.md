@@ -1,4 +1,4 @@
-# Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets
+# Boundaries of Retail Quantitative Trading on Prediction Markets
 
 Multi-campaign empirical evidence on where LLM-assisted retail prediction-market trading
 routes failed under adversarial review at Abel AI Lab.
@@ -7,7 +7,7 @@ routes failed under adversarial review at Abel AI Lab.
 [![Docs/Data License](https://img.shields.io/badge/docs%20%26%20data-CC%20BY%204.0-green.svg)](LICENSE-DOCS)
 [![DOI](https://img.shields.io/badge/DOI-Zenodo%20pending-lightgrey.svg)](.zenodo.json)
 [![arXiv](https://img.shields.io/badge/arXiv-pending-lightgrey.svg)](docs/main.md)
-[![Eval](https://img.shields.io/badge/eval-v0.1.0%20pending-lightgrey.svg)](code/eval/pm-trading-boundaries-eval.sh)
+[![Eval](https://img.shields.io/badge/eval-v0.1.0%20pending-lightgrey.svg)](code/eval/boundaries-of-retail-prediction-market-trading-eval.sh)
 
 ## TL;DR
 
@@ -51,7 +51,7 @@ It contains:
 - the 44-entry BibTeX bibliography in [docs/references.bib](docs/references.bib);
 - cross-campaign aggregate data and ancillary registries in [data/](data/);
 - a release-local eval shell in
-  [code/eval/pm-trading-boundaries-eval.sh](code/eval/pm-trading-boundaries-eval.sh);
+  [code/eval/boundaries-of-retail-prediction-market-trading-eval.sh](code/eval/boundaries-of-retail-prediction-market-trading-eval.sh);
 - Path C extraction primitives preserved as engineering reference in
   [code/extraction/](code/extraction/);
 - citation, Zenodo, GitHub Actions, issue-template, and contribution metadata.
@@ -145,7 +145,7 @@ identifier exists.
 │   └── README.md
 ├── code/
 │   ├── eval/
-│   │   └── pm-trading-boundaries-eval.sh
+│   │   └── boundaries-of-retail-prediction-market-trading-eval.sh
 │   ├── extraction/
 │   │   ├── __init__.py
 │   │   ├── edgar_scanner.py
@@ -162,8 +162,8 @@ The static reproduction path uses Python 3.11+ and standard-library tooling.
 No Python package dependency is required for the main eval.
 
 ```bash
-git clone https://github.com/Abel-ai-causality/pm-trading-boundaries.git
-cd pm-trading-boundaries
+git clone https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading.git
+cd boundaries-of-retail-prediction-market-trading
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -182,7 +182,7 @@ Dependency notes:
 Run the core checks:
 
 ```bash
-bash code/eval/pm-trading-boundaries-eval.sh
+bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh
 cat .eval/rbaseline-eval.log
 python3 -m json.tool data/cross-campaign-aggregate.json >/tmp/paper2.aggregate.json
 python3 - <<'PY'
@@ -222,7 +222,7 @@ wc -l data/anc/attack-registry.jsonl \
   data/anc/methodology-self-attacks.jsonl \
   data/anc/quote-bank.jsonl \
   data/anc/recurring-attacks.csv
-bash code/eval/pm-trading-boundaries-eval.sh
+bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh
 ```
 
 Expected values are 17 aggregate rows, 18 CSV lines, 52 attacks, 225 alternative
@@ -278,27 +278,27 @@ BibTeX:
 
 ```bibtex
 @misc{Wang2026BoundariesLLMPM,
-  title = {Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets:
-           A Multi-Campaign Empirical Retrospective from Abel AI Lab},
+  title = {Boundaries of Retail Quantitative Trading on Prediction Markets:
+           A Multi-Mechanism Empirical Retrospective},
   author = {Wang, Stephen},
   year = {2026},
   version = {v0.1.0},
   institution = {Abel AI Lab},
   doi = {10.5281/zenodo.0000000},
-  url = {https://github.com/Abel-ai-causality/pm-trading-boundaries},
+  url = {https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading},
   note = {DOI and arXiv placeholders pending public release}
 }
 ```
 
 APA:
 
-Wang, S. (2026). *Boundaries of LLM-Assisted Quantitative Trading on Prediction
-Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab* (Version
-v0.1.0). Abel AI Lab. https://github.com/Abel-ai-causality/pm-trading-boundaries
+Wang, S. (2026). *Boundaries of Retail Quantitative Trading on Prediction
+Markets: A Multi-Mechanism Empirical Retrospective* (Version
+v0.1.0). Abel AI Lab. https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading
 
 Plain text:
 
-Stephen Wang, "Boundaries of LLM-Assisted Quantitative Trading on Prediction
+Stephen Wang, "Boundaries of Retail Quantitative Trading on Prediction
 Markets," Abel AI Lab, v0.1.0, 2026.
 
 GitHub also reads [CITATION.cff](CITATION.cff) for the citation widget.
@@ -344,7 +344,7 @@ The license files intentionally include placeholder notices at the top.
 
 - Stephen Wang, Abel AI Lab, <lab@abel.ai>
 - `github.com/Abel-ai-causality`
-- `pm-trading-boundaries`
+- `boundaries-of-retail-prediction-market-trading`
 
 ## Acknowledgments
 
@@ -370,7 +370,7 @@ state as of 2026-05-06.
 For paper, data, and reproduction questions:
 
 - email: <lab@abel.ai>
-- GitHub issues: <https://github.com/Abel-ai-causality/pm-trading-boundaries/issues>
+- GitHub issues: <https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading/issues>
 
 Use the methodology-question template when referencing a specific finding,
 campaign, quote-bank row, or attack-registry row.

@@ -14,7 +14,7 @@ jobs:
 
       - name: Run Paper 2 eval
         run: |
-          score="$(bash code/eval/pm-trading-boundaries-eval.sh)"
+          score="$(bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh)"
           echo "score=${score}"
           python3 - "$score" <<'PY'
           import sys

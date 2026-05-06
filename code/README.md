@@ -16,12 +16,12 @@ External tools:
 - optional `codex` CLI for the historical Path C extractor if run directly;
 - optional network access for the EDGAR scanner and GitHub reference workflow.
 
-## `eval/pm-trading-boundaries-eval.sh`
+## `eval/boundaries-of-retail-prediction-market-trading-eval.sh`
 
 Usage:
 
 ```bash
-bash code/eval/pm-trading-boundaries-eval.sh
+bash code/eval/boundaries-of-retail-prediction-market-trading-eval.sh
 cat .eval/rbaseline-eval.log
 ```
 

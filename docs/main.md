@@ -1,4 +1,4 @@
-# Boundaries of LLM-Assisted Quantitative Trading on Prediction Markets: A Multi-Campaign Empirical Retrospective from Abel AI Lab
+# Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective
 
 Author: Stephen Wang (Abel AI Lab)
 Email: lab@abel.ai
