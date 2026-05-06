@@ -1,6 +1,6 @@
 # Boundaries of Retail Quantitative Trading on Prediction Markets
 
-**A multi-mechanism empirical retrospective. Thirteen Abel AI Lab campaigns. One hundred fifty-six instrumented adversarial-review rounds. Zero sustainable >$1k/month retail trading routes after the gates.**
+**Four gates, one new failure mode, 225 alternative routes — a map of where LLM-assisted retail prediction-market trading fails, drawn from 13 Abel AI Lab campaigns.**
 
 [![Code License](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE-CODE)
 [![Docs & Data License](https://img.shields.io/badge/docs%20%26%20data-CC%20BY%204.0-green.svg)](LICENSE-DOCS)
@@ -11,7 +11,7 @@
 
 ## The Result in One Paragraph
 
-When one lab tries to turn LLM-accessible prediction-market data into deployable retail trading at $1k–$100k bankroll, every obvious route closes against at least one gate: **mechanism saturation** (327-trade threshold-ladder arsenal closed; market-making lost 5/6 fills at 100bps), **capacity** (a 23.6% spread on $5.34 of book depth is not a strategy), **LLM-extraction ceiling-pin behavior** at the rubric and prompt layers (n=3 cross-mechanism observations), and **anchoring uncertainty** that contaminates LLM priors elicited near a visible market quote. The paper preserves the failure trail so other builders do not pay to discover the same gates. The claim is bounded: single-lab, single-period, suggestive — not a universal theorem about prediction-market efficiency or LLM trading.
+When LLMs meet retail prediction markets, four gates determine whether any route survives: **sourceability**, **fillability**, **capacity**, and **anchor stability**. Across 13 Abel AI Lab campaigns and 156 adversarial-review rounds we document each gate, name a cross-mechanism failure mode — **ceiling-pin layer migration**, the LLM-extraction defect that moves from the rubric layer to the prompt layer once the rubric is tightened (n=3 instances) — and formalize a pre-launch program-gate methodology that caught 18 of 21 launch defects before any implementation round began. The repository preserves 225 alternative routes with their selected, rejected, deferred, and promoted decisions, a 52-row strict-parsed attack registry, and a 40-quote verbatim evidence bank. The contribution is a **map of failure modes** for retail builders, a **methodology that generalizes beyond trading**, and a **failure-preserving corpus** for cross-validation. Bounded: single-lab, single-period; suggestive, not universal.
 
 ```
                 campaigns ──┐

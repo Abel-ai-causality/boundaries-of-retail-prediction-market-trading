@@ -57,28 +57,31 @@ the manuscript, statistics, code references, citations, and claims.
 These tools are not authors.
 
 ## Abstract
-When a single research lab tries to turn LLM-accessible market information into deployable
-retail trading on prediction markets, where do the routes fail? This retrospective answers
-from the evidence of 13 active campaigns and 156 instrumented rounds across 12 calendar days
-at Abel AI Lab in 2026-Q2. The corpus combines 12 fully instrumented Abelian campaigns, one
-peer-files-only active campaign, and four sparse legacy inventories retained for denominator
-honesty but excluded from active analysis. State files, peer attacks, route registries,
-quote-bank evidence, and program-gate timelines are mined to map four mechanisms:
-math-arbitrage
-saturation, cross-mechanism LLM-extraction ceiling-pin behavior, retail-bankroll capacity
-ceilings, and anchoring uncertainty as a trading constraint. The ceiling-pin pattern is
-reported as n=3 observed instances, llm-narrative-trade-0125, llm-deploy-10k, and
-path-c-1week-probe, with the count treated as cross-mechanism but still single-lab,
-single-period, and suggestive rather than structural. The sister MarketAnchor v0.1.2 result
-contributes only the narrower observation that consensus-anchor sensitivity exists in one
-stored LLM forecasting run, with mean net signed drift of 256.73 probability bps; it is not
-cited as tradable edge, return, or calibration error. Paper 2 separately argues that small
-LLM-prior edges are not operationally independent until this anchoring uncertainty is
-controlled. The methodology contribution is the empirical record of Abelian rule #16 R0
-gates: Path C narrowed 18 to 3 to 1 to 0 attacks, while Paper 2 narrowed 21 to 6 to 4 to 3
-to 1 before R1 extraction. The repository and Zenodo DOI are planned for public release
-after Abel AI Lab license confirmation. MarketAnchor v0.1.2 remains citation pending
-verification until an external identifier exists.
+When LLMs meet retail prediction markets, four gates determine whether any route
+survives: sourceability, fillability, capacity, and anchor stability. We document each
+gate with concrete evidence from 13 Abel AI Lab campaigns and 156 instrumented
+adversarial-review rounds in 2026-Q2, identify a cross-mechanism failure mode we name
+ceiling-pin layer migration — the LLM-extraction defect that moves from the rubric layer
+to the prompt layer once the rubric is tightened, observed in n=3 cross-mechanism
+instances (llm-narrative-trade-0125, llm-deploy-10k, path-c-1week-probe) — and formalize
+a pre-launch program-gate methodology that caught 18 of 21 launch defects before any
+implementation round began. The corpus combines 12 fully instrumented Abelian campaigns,
+one peer-files-only active campaign, and four sparse legacy inventories retained for
+denominator honesty but excluded from active analysis. We preserve 225 alternative routes
+with their selected, rejected, deferred, and promoted decisions, a 52-row strict-parsed
+attack registry, a 40-quote verbatim evidence bank, and a methodology timeline
+distinguishing pre-registered from retrospectively analyzed campaigns. The methodology
+contribution is the empirical record of Abelian rule #16 R0 gates: Path C narrowed 18 to
+3 to 1 to 0 attacks, while Paper 2 narrowed 21 to 6 to 4 to 3 to 1 before R1 extraction.
+The sister MarketAnchor v0.1.2 result contributes only the narrower observation that
+consensus-anchor sensitivity exists in one stored LLM forecasting run, with mean net
+signed drift of 256.73 probability bps; it is not cited as tradable edge, return, or
+calibration error. The contribution is a map of failure modes for retail builders, a
+methodology that generalizes beyond trading, and a failure-preserving corpus for
+cross-validation. The claim is bounded: single-lab, single-period; suggestive, not
+structural. The repository and Zenodo DOI are planned for public release after Abel AI
+Lab license confirmation. MarketAnchor v0.1.2 remains citation pending verification until
+an external identifier exists.
 
 ## 1. Introduction
 
