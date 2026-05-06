@@ -46,16 +46,26 @@ jobs:
                       failures.append(f"arXiv ID not found in API response: {arxiv_id}")
               time.sleep(3)
 
+          # Use Crossref API instead of doi.org HTTP redirect (doi.org rate-limits GitHub runner IPs).
+          # Crossref API is the canonical metadata service; allows un-throttled access with proper UA.
           for doi in dois:
-              url = "https://doi.org/" + doi.strip()
-              req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "AbelAI-paper2-reference-check/0.1"})
+              clean_doi = doi.strip()
+              url = "https://api.crossref.org/works/" + urllib.parse.quote(clean_doi, safe="/.")
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": "AbelAI-paper2-reference-check/0.1 (mailto:lab@abel.ai)",
+                      "Accept": "application/json",
+                  },
+              )
               try:
-                  urllib.request.urlopen(req, timeout=30)
+                  urllib.request.urlopen(req, timeout=30).read()
               except urllib.error.HTTPError as exc:
                   if exc.code >= 400:
-                      failures.append(f"DOI resolver failed {doi}: HTTP {exc.code}")
+                      failures.append(f"Crossref API failed {clean_doi}: HTTP {exc.code}")
               except Exception as exc:
-                  failures.append(f"DOI resolver failed {doi}: {exc}")
+                  failures.append(f"Crossref API failed {clean_doi}: {exc}")
+              time.sleep(0.5)  # be polite to Crossref
 
           print(f"checked_arxiv={len(arxiv_ids)} checked_doi={len(dois)}")
           if failures:
