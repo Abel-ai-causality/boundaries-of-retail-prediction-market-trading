@@ -27,14 +27,26 @@ Reading a prediction market is not trading a prediction market. The gap has a sh
 
 A route has to clear all four. Across 11 trading-focused campaigns, **none did**.
 
-## The finding that surprised us
+## Three takeaways, no hedge
 
-Tighten the LLM's rubric and the defect doesn't die — **it migrates**.
+**1. Reading a market is not trading a market.**
+13 campaigns. 156 adversarial-review rounds. 225 route decisions. **0 deployable.** The four gates — sourceability, fillability, capacity, anchor stability — are not optional pipeline steps. They are the floor that turns a plausible-looking trade into a real one.
 
-A field-count rubric scores the answer's shape. The model writes a shape that passes. You add stricter scoring; the defect hops to the prompt/output layer (now the answer-shape passes too). Only verification *outside the model loop* — checking the actual external object — kills it. We saw this pattern strictly twice and across the prompt-gate family three more times. The paper formalizes it as **ceiling-pin layer migration** (Definitions 1–3, §5).
+**2. Tighten the rubric and the bug doesn't die — it migrates.**
+A field-count rubric scores the answer's *shape*. The model writes a shape that passes. You tighten the rubric; the defect hops to the prompt/output layer (now the answer-shape passes too). Only verification *outside* the model loop — checking the actual external object — kills it. We saw this strictly twice and across the prompt-gate family three more times. **The fix is not a smarter model. It is a smarter verifier.** The paper formalizes this as **ceiling-pin layer migration** (Definitions 1–3, §5).
 
 > "Score the external object, not the model output."
 > — the one-line repair that closes the failure mode.
+
+**3. The corpus you delete is the corpus that would have saved the next campaign.**
+We attacked our own program contract 156 times before publishing — pre-implementation, pre-commit, post-commit — and saved every rejected route. **Adversarial review is not paranoia. It is the only protocol that survives contact with a real market.**
+
+### A few bold takes
+
+- If your LLM trading system has not been peer-attacked at the **program-contract level**, before any code ran, you do not have a system. You have a vibe.
+- The frontier of retail LLM trading is **not** bigger context windows or smarter models. It is **verification that does not live in the model**.
+- Most "LLM trades the market" demos hide their failures. We saved ours. **Read the failures first**; the wins will start to look like noise.
+- Pre-implementation peer review is cheap (~$0.05–$2 in API spend per campaign). The cost of skipping it is one quarter of debugging the wrong target.
 
 ## Why this is publishable, not just a blog post
 
