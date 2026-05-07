@@ -1,11 +1,11 @@
 {
   "upload_type": "publication",
   "publication_type": "preprint",
-  "title": "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective",
-  "description": "Release package for Paper 2 from Abel AI Lab. The artifact contains the manuscript, references, cross-campaign aggregate data, ancillary registries, a release-local paper eval, and preserved engineering primitives from a terminated Path C campaign. Claims are scoped to a single-lab, single-period retrospective of LLM-assisted retail prediction-market trading campaigns.",
+  "title": "Legibility Is Not Deployability: Four Gates for LLM-Assisted Prediction-Market Trading",
+  "description": "Paper 2 from Abel AI Lab, v0.2.0. The artifact contains the manuscript (Markdown + LaTeX), all 12 cited references, an Evidence Locator that maps every numeric claim to a source artifact, the 17-row cross-campaign aggregate that defines the corpus, ancillary registries (52 strict-parsed peer attacks, 225 alternative-routes decisions, 40 verbatim quote rows, 21 manuscript self-attacks), and engineering primitives from a terminated Path C campaign. The paper distills four operational gates (sourceability, fillability, capacity, anchor stability) that repeatedly erased apparent LLM-accessible edges, formalizes ceiling-pin layer migration, and documents an adversarial R0 program-gate protocol. Scope is a single-lab, single-period failure-preserving corpus.",
   "creators": [
     {
-      "name": "Wang, Stephen",
+      "name": "Abel AI Lab",
       "affiliation": "Abel AI Lab"
     }
   ],
@@ -19,15 +19,17 @@
   "keywords": [
     "prediction markets",
     "LLM trading",
-    "ceiling-pin",
+    "ceiling-pin layer migration",
     "anchoring bias",
     "Abelian methodology",
-    "retrospective",
-    "Polymarket"
+    "preregistration",
+    "failure-preserving corpus",
+    "Polymarket",
+    "retrospective"
   ],
   "access_right": "open",
   "license": "cc-by-4.0",
-  "version": "v0.1.0",
+  "version": "v0.2.0",
   "language": "eng",
   "related_identifiers": [
     {
@@ -49,5 +51,5 @@
       "resource_type": "publication-preprint"
     }
   ],
-  "notes": "Metadata for Zenodo DOI registration after the GitHub repository is public and a release tag is created. arXiv preprint identifier added when assigned."
+  "notes": "Metadata for Zenodo DOI registration after a v0.2.0 release tag is created. arXiv preprint identifier added when assigned. The v0.1.0 release used the title 'Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective'."
 }

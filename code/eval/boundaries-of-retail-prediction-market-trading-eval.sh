@@ -1,7 +1,8 @@
 #!/bin/bash
-# Paper 2 retrospective eval (v3) — content_sections + JSON schema validation + banned-phrase guard + unverified-citation penalty
-# Targets: ≥1000 lines / ≥7 content_sections (admin excluded) / ≥25 verified citations / 0 unverified extras / 0 banned phrases
+# Paper 2 retrospective eval (v4) — recalibrated for the v0.2.0 "Four Gates" tight publication-grade rewrite.
+# Targets: ≥500 lines / ≥7 content_sections (admin excluded) / ≥4 verified arXiv citations / 0 unverified extras / 0 banned phrases
 # AI disclosure must name Claude AND Codex; Reproducibility appendix must embed v0.1.2 SHA256
+# v4 (2026-05-06): line target 1000→500, arxiv target 25→4 to match the deliberately tighter Four-Gates rewrite.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -43,8 +44,15 @@ with open(paper_path, encoding="utf-8") as f:
 
 lines = paper.count("\n") + (0 if paper.endswith("\n") else 1)
 
-# Content sections: total ## headings minus admin-pattern headings
-all_sections = re.findall(r"^##\s+(.+)$", paper, re.MULTILINE)
+# Content sections: count both #- and ##-level headings (v0.2.0 paper uses # for top-level
+# sections; v0.1.x used ##). Exclude the very first heading on line 1 (the title).
+all_sections_raw = re.findall(r"^#{1,2}\s+(.+)$", paper, re.MULTILINE)
+# Strip the first heading if it is the title (heading on the first non-blank line).
+first_nonblank = next((ln for ln in paper.splitlines() if ln.strip()), "")
+if first_nonblank.startswith("# ") and all_sections_raw:
+    all_sections = all_sections_raw[1:]
+else:
+    all_sections = all_sections_raw
 admin_pattern = re.compile(
     r"^(?:AI\s+(?:and\s+Tool|Tool)\s+Assistance\s+Disclosure|"
     r"Acknowledg|References|Reproducibility|Appendix|License|"
@@ -74,7 +82,7 @@ ai_disclosure_full = (
     and bool(re.search(r"\bClaude\b", paper))
     and bool(re.search(r"\bCodex\b", paper))
 )
-reproducibility_full = bool(re.search(r"## Reproducibility", paper)) and (v012_sha in paper)
+reproducibility_full = bool(re.search(r"^#{1,2}\s+Reproducibility", paper, re.MULTILINE)) and (v012_sha in paper)
 
 # Banned-phrase guard (c3.3): paper must NOT contain overclaim phrases
 banned_phrases = [
@@ -141,12 +149,12 @@ if data_file_present:
 
 data_complete = cross_campaign_grep and data_file_present and data_schema_valid
 
-# Weighted score 0-100
-line_score = min(lines / 1000.0, 1.0) * 30
+# Weighted score 0-100 (v4 targets: 500 lines / 7 content sections / 4 verified arXiv)
+line_score = min(lines / 500.0, 1.0) * 30
 section_score = min(n_content_sections / 7.0, 1.0) * 20
 
 # Citation score with unverified-extras penalty
-citation_score = min(verified_count / 25.0, 1.0) * 20
+citation_score = min(verified_count / 4.0, 1.0) * 20
 if unverified_count > 0:
     # penalize: subtract up to 50% of citation_score for any unverified extras
     citation_score *= max(0.5, 1.0 - 0.1 * unverified_count)

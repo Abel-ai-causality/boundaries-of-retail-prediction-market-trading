@@ -1,75 +1,45 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the Paper 2 artifact."
-title: "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective"
+message: "If you use this repository, please cite the v0.2.0 manuscript."
+title: "Legibility Is Not Deployability: Four Gates for LLM-Assisted Prediction-Market Trading"
 type: dataset
 authors:
-  - family-names: Wang
-    given-names: Stephen
+  - name: "Abel AI Lab"
     affiliation: "Abel AI Lab"
     email: lab@abel.ai
-version: "v0.1.0"
+version: "v0.2.0"
 date-released: "2026-05-06"
 abstract: >-
-  This repository packages the manuscript, data registries, and minimal
-  reproduction checks for Paper 2 from Abel AI Lab. The paper maps observed
-  boundaries of LLM-assisted retail prediction-market trading across 13 active
-  campaigns and 156 instrumented rounds, with scope limited to a single-lab,
-  single-period retrospective.
+  This repository packages the manuscript, data registries, the Evidence
+  Locator, and minimal reproduction checks for Paper 2 from Abel AI Lab.
+  The paper distills four operational gates—sourceability, fillability,
+  capacity, and anchor stability—that repeatedly erased apparent
+  LLM-accessible edges in retail prediction-market trading research, and
+  formalizes ceiling-pin layer migration as a cross-mechanism failure
+  mode. Scope is a single-lab, single-period failure-preserving corpus:
+  13 active campaigns, 156 instrumented adversarial-review rounds, 225
+  recovered route decisions, 52 strict attack rows, 40 quote-bank rows,
+  and zero durable greater-than-$1k/month retail deployment routes.
 keywords:
   - prediction-markets
   - LLM-trading
   - ceiling-pin
+  - layer-migration
   - anchoring-bias
   - abelian-methodology
+  - failure-preserving-corpus
+  - preregistration
   - retrospective
 license: CC-BY-4.0
 repository-code: "https://github.com/Abel-ai-causality/boundaries-of-retail-prediction-market-trading"
 preferred-citation:
   type: article
-  title: "Boundaries of Retail Quantitative Trading on Prediction Markets: A Multi-Mechanism Empirical Retrospective"
+  title: "Legibility Is Not Deployability: Four Gates for LLM-Assisted Prediction-Market Trading"
   authors:
-    - family-names: Wang
-      given-names: Stephen
+    - name: "Abel AI Lab"
       affiliation: "Abel AI Lab"
   year: 2026
   journal: "arXiv preprint, pending"
 references:
-  - type: article
-    title: "Training language models to follow instructions with human feedback"
-    authors:
-      - family-names: Ouyang
-        given-names: Long
-    year: 2022
-    identifiers:
-      - type: url
-        value: "https://arxiv.org/abs/2203.02155"
-  - type: article
-    title: "Constitutional AI: Harmlessness from AI Feedback"
-    authors:
-      - family-names: Bai
-        given-names: Yuntao
-    year: 2022
-    identifiers:
-      - type: url
-        value: "https://arxiv.org/abs/2212.08073"
-  - type: article
-    title: "Towards Understanding Sycophancy in Language Models"
-    authors:
-      - family-names: Sharma
-        given-names: Mrinank
-    year: 2023
-    identifiers:
-      - type: url
-        value: "https://arxiv.org/abs/2310.13548"
-  - type: article
-    title: "AI-Augmented Predictions: LLM Assistants Improve Human Forecasting Accuracy"
-    authors:
-      - family-names: Schoenegger
-        given-names: Philipp
-    year: 2024
-    identifiers:
-      - type: url
-        value: "https://arxiv.org/abs/2402.07862"
   - type: article
     title: "ForecastBench: A Dynamic Benchmark of AI Forecasting Capabilities"
     authors:
@@ -84,10 +54,58 @@ references:
     authors:
       - family-names: Lou
         given-names: Jiaxu
+      - family-names: Sun
+        given-names: Yiyang
     year: 2024
     identifiers:
       - type: url
         value: "https://arxiv.org/abs/2412.06593"
+  - type: article
+    title: "AI-Augmented Predictions: LLM Assistants Improve Human Forecasting Accuracy"
+    authors:
+      - family-names: Schoenegger
+        given-names: Philipp
+    year: 2024
+    identifiers:
+      - type: url
+        value: "https://arxiv.org/abs/2402.07862"
+  - type: article
+    title: "PolyBench: Benchmarking LLM Forecasting and Trading Capabilities on Live Prediction Market Data"
+    authors:
+      - family-names: Cheng
+        given-names: P.
+      - family-names: Liu
+        given-names: J.
+      - family-names: Long
+        given-names: Y.
+    year: 2026
+    identifiers:
+      - type: url
+        value: "https://arxiv.org/abs/2604.14199"
+  - type: article
+    title: "The Preregistration Revolution"
+    authors:
+      - family-names: Nosek
+        given-names: Brian A.
+      - family-names: Ebersole
+        given-names: Charles R.
+      - family-names: DeHaven
+        given-names: Alexander C.
+      - family-names: Mellor
+        given-names: David T.
+    year: 2018
+    identifiers:
+      - type: doi
+        value: "10.1073/pnas.1708274114"
+  - type: article
+    title: "Discovering Language Model Behaviors with Model-Written Evaluations"
+    authors:
+      - family-names: Perez
+        given-names: Ethan
+    year: 2022
+    identifiers:
+      - type: url
+        value: "https://arxiv.org/abs/2212.09251"
   - type: article
     title: "Prediction Markets"
     authors:
@@ -97,5 +115,5 @@ references:
         given-names: Eric
     year: 2004
     identifiers:
-      - type: url
-        value: "https://doi.org/10.1257/0895330041371321"
+      - type: doi
+        value: "10.1257/0895330041371321"
