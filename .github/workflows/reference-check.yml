@@ -32,18 +32,49 @@ jobs:
 
           failures = []
 
+          # arXiv API rate-limits GitHub runner IPs aggressively (HTTP 429).  Identify with
+          # a UA + From header (recommended by arXiv terms) and retry with exponential
+          # backoff on 429 / 5xx / network errors before declaring a content failure.
+          def fetch_arxiv(url, max_attempts=5):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": "AbelAI-paper2-reference-check/0.2 (+mailto:lab@abel.ai)",
+                      "From": "lab@abel.ai",
+                      "Accept": "application/atom+xml",
+                  },
+              )
+              for attempt in range(max_attempts):
+                  try:
+                      return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+                  except urllib.error.HTTPError as e:
+                      if e.code in (429, 500, 502, 503, 504) and attempt < max_attempts - 1:
+                          delay = 5 * (2 ** attempt)  # 5, 10, 20, 40s
+                          print(f"  arXiv HTTP {e.code}, retry in {delay}s (attempt {attempt+1}/{max_attempts})", file=sys.stderr)
+                          time.sleep(delay)
+                          continue
+                      raise
+                  except (urllib.error.URLError, TimeoutError) as e:
+                      if attempt < max_attempts - 1:
+                          delay = 5 * (2 ** attempt)
+                          print(f"  arXiv network error: {e}, retry in {delay}s (attempt {attempt+1}/{max_attempts})", file=sys.stderr)
+                          time.sleep(delay)
+                          continue
+                      raise
+
           for start in range(0, len(arxiv_ids), 25):
               batch = arxiv_ids[start:start + 25]
               query = urllib.parse.urlencode({"id_list": ",".join(batch)})
               url = f"https://export.arxiv.org/api/query?{query}"
               try:
-                  body = urllib.request.urlopen(url, timeout=30).read().decode("utf-8", "replace")
+                  body = fetch_arxiv(url)
               except Exception as exc:
                   failures.append(f"arXiv batch failed {batch}: {exc}")
                   continue
               for arxiv_id in batch:
                   if arxiv_id not in body:
                       failures.append(f"arXiv ID not found in API response: {arxiv_id}")
+              # arXiv terms-of-service: at most one request every 3 seconds.
               time.sleep(3)
 
           # Use Crossref API instead of doi.org HTTP redirect (doi.org rate-limits GitHub runner IPs).
