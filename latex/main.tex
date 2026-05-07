@@ -99,14 +99,14 @@ Raw inventory comes first. Seventeen campaign directories and 164 raw round dire
 
 Round counts are partitioned before analysis. Infrastructure campaigns contributed 97 rounds, dominated by live-readiness and websocket/cron-alignment hardening. Trading-focused claims use 59 rounds across 11 active trading campaigns. This separation is not cosmetic. A system can make enormous engineering progress while producing no deployable trading evidence; conflating those categories is one route to false confidence.
 
-Route decisions provide the failure denominator. The recovered registry contains 225 route rows: 45 selected, 135 rejected, and 45 deferred. Promotion is tracked separately because a route can be carried forward without becoming the chosen implementation path; the aggregate campaign table records 82 promoted routes. In other words, the archive preserves search discipline, not just search success.
+Route decisions provide the failure denominator. The recovered registry contains 225 route rows: 45 selected, 135 rejected, and 45 deferred. Promotion is tracked separately because a route can be carried forward without becoming the chosen implementation path; the per-row \texttt{promoted\_to\_next\_round} flag is true on 79 routes. In other words, the archive preserves search discipline, not just search success.
 
 Attack rows make objections auditable. The strict attack registry contains 52 peer attacks after a noisy earlier parse was quarantined. A separate methodology-self-attack file keeps manuscript-construction objections out of cross-campaign trading recurrence counts. The quote bank contains 40 verbatim evidence rows with per-campaign and peer-role caps, so one dense infrastructure campaign cannot dominate the evidence base.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=.98\linewidth]{figures/fig2_route_ledger_refined.pdf}
-\caption{Route attrition ledger. \emph{Left:} terminal outcomes for the 225 recovered route decisions (135 rejected, 45 selected, 45 deferred). \emph{Right:} the orthogonal ``carried forward'' count of 82 routes whose status was promoted into a later round; promotion is tracked separately because a route can be advanced for further attack without becoming the chosen implementation path. The missing denominator is the route that looked plausible, was attacked, and failed before capital could scale.}
+\caption{Route attrition ledger. The lower three bars are terminal outcomes for the 225 recovered route decisions (135 rejected, 45 selected, 45 deferred). The top bar tracks an orthogonal axis: 79 routes whose \texttt{promoted\_to\_next\_round} flag is true, i.e.\ carried forward into the next round's candidate pool. Promotion and selection are tracked separately because a route can be advanced for further attack without becoming the chosen implementation path. The missing denominator is the route that looked plausible, was attacked, and failed before capital could scale.}
 \label{fig:route-ledger}
 \end{figure}
 

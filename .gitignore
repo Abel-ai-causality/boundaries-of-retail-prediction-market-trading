@@ -38,3 +38,12 @@ node_modules/
 
 # Local eval output
 .eval/
+
+# LaTeX build artifacts (keep main.pdf tracked, drop intermediates)
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.out
+latex/*.toc
+latex/*.fls
+latex/*.fdb_latexmk

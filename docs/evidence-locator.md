@@ -34,7 +34,8 @@ Paths are relative to the repository root. Section numbers refer to the
 | 156 instrumented rounds (active total) | §1, Table 1, §3 | `data/cross-campaign-aggregate.json` (`n_rounds` over active rows) | `python3 -c "import json; d=json.load(open('data/cross-campaign-aggregate.json')); print(sum(r['n_rounds'] for r in d if r['instrumentation_level'] in ('full_state_json','peer_files_only')))"` |
 | 225 recovered route decisions | §1, Table 1, §3 | `data/anc/alternative-routes.jsonl` (one row = one decision) | `wc -l < data/anc/alternative-routes.jsonl` |
 | 45 selected / 135 rejected / 45 deferred | §3 | `data/anc/alternative-routes.jsonl` (`ultimate_outcome` field) | `python3 -c "import json,collections; print(dict(collections.Counter(json.loads(l)['ultimate_outcome'] for l in open('data/anc/alternative-routes.jsonl') if l.strip())))"` |
-| 82 promoted routes (per-campaign aggregate) | §3 | `data/per-campaign-summary.csv` (`alternative_routes_count` column, summed) | `python3 -c "import csv; print(sum(int(r['alternative_routes_count'] or 0) for r in csv.DictReader(open('data/per-campaign-summary.csv'))))"` |
+| 79 promoted routes (per-row promotion flag) | §3, Fig 2 | `data/anc/alternative-routes.jsonl` (`promoted_to_next_round=true`) | `python3 -c "import json; print(sum(1 for l in open('data/anc/alternative-routes.jsonl') if l.strip() and json.loads(l).get('promoted_to_next_round') is True))"` |
+| 228 alternative-route rows (campaign aggregate, distinct metric) | §3 | `data/per-campaign-summary.csv` (`alternative_routes_count` column, summed across 17 raw campaigns) | `python3 -c "import csv; print(sum(int(r['alternative_routes_count'] or 0) for r in csv.DictReader(open('data/per-campaign-summary.csv'))))"` |
 | 52 strict attack rows | §1, Table 1, §3 | `data/anc/attack-registry.jsonl` | `wc -l < data/anc/attack-registry.jsonl` |
 | 40 quote-bank rows | §1, Table 1, §3 | `data/anc/quote-bank.jsonl` | `wc -l < data/anc/quote-bank.jsonl` |
 | 0 durable deployment routes | Table 1, Abs, §1 | Negative claim derived from §4–§7; cross-check against the `key_finding_one_line` column of `data/per-campaign-summary.csv` for each trading-focused campaign | `awk -F, 'NR>1 {print $1": "$NF}' data/per-campaign-summary.csv` |
@@ -112,11 +113,13 @@ denominator-preserving claim is robust to that choice; the partition
 exists to keep engineering hardening from being mislabeled as trading
 edge, not to support a fine-grained measurement.
 
-The `82 promoted routes` is an aggregate carried over from the
-per-campaign summary table and includes rows where a route was retained
-into a later round without being chosen as the implementation path. It
-is therefore an upper bound on "routes that got real work done," not an
-estimate of "routes that became trades."
+The `79 promoted routes` is the per-row count of
+`promoted_to_next_round=true` in `alternative-routes.jsonl`: routes that
+were retained into a later round without being chosen as the
+implementation path. The separate `228` aggregate in
+`per-campaign-summary.csv` (`alternative_routes_count`) counts every
+alternative-route row generated per campaign and is a different metric;
+both are reported here so readers can recompute either.
 
 If a reviewer finds an entry that does not reproduce, please open an
 issue in the public repository with the manuscript line and the source

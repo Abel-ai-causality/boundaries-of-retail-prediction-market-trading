@@ -184,9 +184,9 @@ false confidence.
 Route decisions provide the failure denominator. The recovered registry
 contains 225 route rows: 45 selected, 135 rejected, and 45 deferred.
 Promotion is tracked separately because a route can be carried forward
-without becoming the chosen implementation path; the aggregate campaign
-table records 82 promoted routes. In other words, the archive preserves
-search discipline, not just search success.
+without becoming the chosen implementation path; the per-row
+`promoted_to_next_round` flag is true on 79 routes. In other words, the
+archive preserves search discipline, not just search success.
 
 Attack rows make objections auditable. The strict attack registry
 contains 52 peer attacks after a noisy earlier parse was quarantined. A
