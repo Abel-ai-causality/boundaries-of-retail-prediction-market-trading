@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-05-07",
+  "snapshot_source_files": [
+    "trading-internal/polymarket_state.json",
+    "trading-internal/math_arb_state.json",
+    "trading-internal/pm_live_trading_state.json",
+    "trading-internal/reconcile_state.json",
+    "trading-internal/live_readiness_state.json"
+  ],
+  "live_execution_status": {
+    "live_mode_active": false,
+    "broker_mode": "DRYRUN",
+    "ready_to_flip": false,
+    "n_drift": 0
+  },
+  "sharpe_formula": "mean(pnl) / std(pnl) * sqrt(n); per-trade not annualized; monotone in n for positive-EV mechanisms by construction",
+  "panels": [
+    {
+      "panel": "pmDup",
+      "family": "cross-event-duplicate",
+      "n": 99,
+      "win_rate": 1.0,
+      "cum_pnl_usd": 28.989,
+      "sharpe_per_trade": 17.43,
+      "gate_attribution": "G2_fillability_idealized_executor",
+      "ev_target_label": "~$13K"
+    },
+    {
+      "panel": "pmSpread",
+      "family": "sport-line-monotonicity",
+      "n": 131,
+      "win_rate": 0.87,
+      "cum_pnl_usd": 41.686,
+      "sharpe_per_trade": 9.27,
+      "gate_attribution": "G2_fillability_partial_fills_settlement_uncosted",
+      "ev_target_label": "~$160K"
+    },
+    {
+      "panel": "pmMlSpread",
+      "family": "moneyline-spread-cross-family",
+      "n": 78,
+      "win_rate": 1.0,
+      "cum_pnl_usd": 19.077,
+      "sharpe_per_trade": 7.08,
+      "gate_attribution": "G2_fillability_same_idealization_as_pmDup",
+      "ev_target_label": "~$35K"
+    },
+    {
+      "panel": "pmLadder_postfix",
+      "family": "threshold-ladder-retroactive-fix",
+      "n": 41,
+      "win_rate": null,
+      "cum_pnl_usd": 14.115,
+      "sharpe_per_trade": 11.84,
+      "gate_attribution": "G1_alpha_class_closed_2026_05",
+      "ev_target_label": "subset_of_pmLadder"
+    },
+    {
+      "panel": "pmLadder_original",
+      "family": "threshold-ladder-tennis-crypto",
+      "n": 50,
+      "win_rate": null,
+      "cum_pnl_usd": 1.608,
+      "sharpe_per_trade": 0.28,
+      "gate_attribution": "G1_alpha_class_closed_2026_05_zero_violations_4365_markets",
+      "ev_target_label": "~$6K"
+    },
+    {
+      "panel": "pmWdw",
+      "family": "3way-wdw-mece-basket",
+      "n": 131,
+      "win_rate": 0.168,
+      "cum_pnl_usd": -0.41,
+      "sharpe_per_trade": -0.68,
+      "gate_attribution": "mechanism_fails_under_realistic_execution",
+      "ev_target_label": "~$21K"
+    },
+    {
+      "panel": "pmByDate",
+      "family": "multi-deadline-same-proposition",
+      "n": 5,
+      "win_rate": 1.0,
+      "cum_pnl_usd": 0.904,
+      "sharpe_per_trade": 1.16,
+      "gate_attribution": "G3_capacity_n_5_too_small_for_live_alpha_claim",
+      "ev_target_label": "~$55K"
+    },
+    {
+      "panel": "pmOuPlayer",
+      "family": "per-player-nba-ou-monotone",
+      "n": 0,
+      "win_rate": null,
+      "cum_pnl_usd": 0.0,
+      "sharpe_per_trade": null,
+      "gate_attribution": "panel_unstarted_2026_05_07",
+      "ev_target_label": "~$20K"
+    }
+  ],
+  "summary": {
+    "n_panels": 8,
+    "n_with_real_fills": 0,
+    "n_with_idealized_executor_100pct_win": 3,
+    "n_with_realistic_execution_failure": 1,
+    "n_unstarted": 1,
+    "n_alpha_class_closed": 2
+  }
+}

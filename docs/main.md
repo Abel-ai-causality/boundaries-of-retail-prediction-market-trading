@@ -244,6 +244,59 @@ settlement-rule grounding, and order-book depth at the decision time.
 Backtest memory can motivate a probe; it cannot substitute for current
 executable evidence.
 
+## Worked examples: eight paper-trade panels
+
+The trading-internal dashboard runs eight paper-trade panels, each
+instantiating a candidate math-arb mechanism against the live Polymarket
+universe. The panels share an idealized executor model — best-of-book
+quote at detection time, no slippage, no partial fills, no settlement
+disputes — and write resolved trades to a shared state file every five
+minutes. Table 3 reports the snapshot of 2026-05-07. Paper PnL is not
+fabricated: it is the executor model applied to actually resolved
+Polymarket events. But `live_mode_active = False`, `broker_mode = DRYRUN`,
+and `ready_to_flip = False` across the full operator stack. Zero trades
+have been executed against a real broker on any of the eight panels.
+
+| Panel              | n   | win    | cum_pnl   | sharpe* | gate-failure attribution                                 |
+| ------------------ | --: | -----: | --------: | ------: | -------------------------------------------------------- |
+| pmDup              |  99 | 100%   |  +$29.0   |  17.43  | G2 fillability — 100% win is paper-math idealization     |
+| pmSpread           | 131 |  87%   |  +$41.7   |   9.27  | G2 — partial-fill / settlement uncosted                  |
+| pmMlSpread         |  78 | 100%   |  +$19.1   |   7.08  | G2 — same idealization as pmDup                          |
+| pmLadder-postfix   |  41 |   —    |  +$14.1   |  11.84  | G1 — retroactive fix on a closed alpha class             |
+| pmLadder original  |  50 |   —    |   +$1.6   |   0.28  | G1 — 0/4365 violations 2026-05-03 (§4)                   |
+| **pmWdw**          | 131 | 16.8%  |  **−$0.41** | **−0.68** | mechanism *fails* under realistic execution         |
+| pmByDate           |   5 | 100%   |   +$0.9   |   1.16  | G3 — n=5 paper trades; "live alpha" claim has 5 obs      |
+| pmOuPlayer         |   0 |   —    |       0   |    —    | panel unstarted on snapshot date                         |
+
+*per-trade Sharpe `mean(pnl) / std(pnl) × √n`. Not annualized; monotone
+in n for any positive-expected-value mechanism by construction. The
+dashboard tooltip flags this directly: a rising Sharpe is the formula,
+not the alpha. Mechanism descriptions are deferred to Appendix B.
+
+Seven of the eight panels report monotonically rising Sharpes. Only one
+— pmWdw, the 3-way W/D/W MECE basket — reports realistic execution
+honestly: a 16.8% win rate, −$0.41 cumulative paper PnL, and a Sharpe
+of −0.68. The contrast is the four-gate map in miniature. Idealized
+executor models can manufacture arbitrarily attractive Sharpes for any
+positive-EV math-arb mechanism, but the moment slippage, partial fills,
+and settlement disputes are priced in (pmWdw) the mechanism either
+fails outright or stalls at execution depth (pmDup, pmSpread,
+pmMlSpread) before live capital can be committed. Two of the eight
+panels (pmLadder, pmLadder-postfix) operate inside an alpha class the
+project itself has classed as closed. One (pmByDate) reports a paper
+record of 5 trades against an EV-target label of \$55K. None of the
+eight has cleared the four operational gates strongly enough to support
+a live-deployment claim, and the operator-readiness panel does not
+assert that any of them should.
+
+The exhibit is the paper's title in numbers. The seven idealized panels
+are *legible* — well-defined arb formulations, clean per-trade Sharpe
+math, automated paper executor — and *not deployable*. The one panel
+whose executor models adverse selection at all (pmWdw) reports the
+mechanism failing. The asymmetry — large hero numbers above the fold,
+formula caveat under hover, zero live fills under any panel — is itself
+an instance of the legibility-vs-deployability gap this paper documents.
+
 # Ceiling-Pin Layer Migration
 
 False high confidence was more dangerous than low confidence. We call
@@ -522,6 +575,105 @@ is the paper’s central contribution: not a strategy, but a map of the
 boundary between fluent market reasoning and deployable market action,
 and a public corpus other labs can replicate against. The boundary will
 move; the four gates are the coordinate system for measuring how far.
+
+# Appendix B: Mechanism Descriptions
+
+Each panel in §Worked Examples implements a candidate math-arbitrage
+mechanism on Polymarket. This appendix documents, for each of the
+eight, (i) the proposition family, (ii) the violation rule that
+triggers paper entry, (iii) the idealized executor model that produces
+the dashboard PnL, and (iv) the realistic-execution gap that explains
+each panel's gate-failure attribution in Table 3.
+
+**B.1 pmLadder — Ordered-threshold ladder.**
+Polymarket lists tennis match O/U (e.g., "match games O/U 21.5"), set 1
+games O/U, total sets, and crypto-price thresholds (e.g., "BTC reach
+\$150k by Dec 31"). For two adjacent thresholds X < Y in the same
+contract family, monotonicity requires `P(≥X) ≥ P(≥Y)`. A violation —
+hard ask plus easy bid implying the inverse — is the entry signal. The
+paper executor takes both legs at top-of-book at detection. Realistic
+execution faces multi-group thousand separators in the question text,
+LOW/HIGH modifier flips, FDV pre-launch markets with stale pricing,
+and the `groupItemThreshold` field, which is an MECE-sibling ordinal
+index rather than a monotone threshold and produces structural false
+positives if used as one. Alpha class **closed** 2026-05 after a
+327-trade arsenal saw 0 violations across 4 365 live markets (§4).
+
+**B.2 pmLadder-postfix — Retroactive cross-deadline fix.**
+Earlier ladder runs collapsed cross-deadline duplicates ("hit \$150k by
+June 30" and "hit \$150k by Dec 31") into a single ladder, surfacing
+spurious violations. The postfix variant disambiguates by adding the
+deadline string to the ladder group key. Sharpe 11.84 on 41 paper
+trades is the *paper* improvement; the underlying alpha class remains
+closed, so the panel persists for archive completeness rather than as
+a deployment candidate.
+
+**B.3 pmDup — Cross-event duplicate proposition.**
+The same proposition appears in two distinct events with different
+prices: e.g. "Will Israel strike Yemen this month" priced in two
+parallel events. A violation is a tier-threshold price gap at matched
+semantics. The paper executor assumes both books fill at observed
+top-of-book; realistic execution faces semantic-equivalence disputes,
+asynchronous resolution, and partial cancellation when one event
+resolves before the other. 99 paper trades, 100% win, Sharpe 17.43 is
+the idealized math; under any non-zero slippage assumption, the
+realised win rate falls into the same regime as pmWdw.
+
+**B.4 pmSpread — Sport line monotonicity.**
+Sport spread markets at adjacent points (e.g., "Lakers −5.5" and "Lakers
+−6.5") satisfy a monotonicity that fails in roughly 1% of NBA / NFL
+listings on Polymarket. The arsenal-projected EV target is \$160k/yr;
+the paper executor again models top-of-book fills at observation time
+on both legs without partial-fill or settlement-cost charges.
+
+**B.5 pmMlSpread — Moneyline × spread cross-family.**
+For a given game the moneyline price and the spread price imply a
+joint constraint via point-spread-to-win-probability translation. A
+violation is when the implied win probability from one leg contradicts
+the other beyond a tier threshold. Restricted to NBA + NFL + MLB; other
+sports lack parallel ML+spread liquidity. 78 paper trades, 100% win,
+Sharpe 7.08 — the same paper-fantasy class as pmDup.
+
+**B.6 pmWdw — 3-way W/D/W MECE basket (the honest panel).**
+For a soccer match, Polymarket lists three outcomes — Home, Draw, Away
+— priced as a MECE basket: P(H) + P(D) + P(A) should sum to 1. A
+violation has Σp ≠ 1 above a tier threshold. The paper executor takes
+all three legs at top-of-book; the realistic executor models adverse
+selection by charging the leg most exposed to settlement risk. 131
+paper trades, 16.8% win rate, −\$0.41 cumulative, Sharpe −0.68. **This
+is the only panel whose realistic execution model says the mechanism
+does not work.** Its honesty under adversarial pricing is the negative
+space against which the seven remaining panels' idealized Sharpes
+should be read.
+
+**B.7 pmByDate — Multi-deadline same-proposition.**
+The same proposition with different end dates ("hit \$150k by June 30"
+versus "hit \$150k by Dec 31") has an implicit ordering: longer
+deadlines should price at least as high. A codex-pilot backtest
+reported 154 pairs with median violation 18.6% and a modeled EV of
+\$55k. The live panel has resolved **5** paper trades. Internal memory
+labels multi-deadline LP arb as the project's "only live alpha"; the
+five-observation paper record does not yet support that claim at any
+conventional power threshold.
+
+**B.8 pmOuPlayer — Per-player NBA O/U monotone.**
+Per-NBA-player O/U props at adjacent thresholds (e.g., "LeBron points
+O/U 25.5" versus "O/U 26.5") satisfy a monotonicity analogous to
+pmLadder. Backtest projection is \$20k EV. The panel was **unstarted**
+on the snapshot date: zero resolved paper trades, scanner not yet
+live.
+
+The eight panels share two structural properties. *First*, seven of
+the eight use idealized executors that price in zero slippage, zero
+partial fills, and zero settlement disputes; only pmWdw introduces a
+realistic-execution noise floor. *Second*, every panel uses the
+per-trade √n Sharpe formula whose monotone-in-n behaviour is
+documented in the panel tooltip itself. Reviewer trust in the
+dashboard's headline number ("rising Sharpe") therefore requires
+reading the formula disclaimer first; the disclaimer is in the
+tooltip, not in the top-of-page hero card. The asymmetry —
+striking number above the fold, caveat under hover — is itself an
+instance of the legibility-vs-deployability gap this paper documents.
 
 # AI and Tool Assistance Disclosure
 

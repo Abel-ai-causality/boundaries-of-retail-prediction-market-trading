@@ -41,6 +41,7 @@ Paths are relative to the repository root. Section numbers refer to the
 | 0 durable deployment routes | Table 1, Abs, §1 | Negative claim derived from §4–§7; cross-check against the `key_finding_one_line` column of `data/per-campaign-summary.csv` for each trading-focused campaign | `awk -F, 'NR>1 {print $1": "$NF}' data/per-campaign-summary.csv` |
 | 11 trading-focused campaigns / 59 trading-focused rounds | §1, §3, Abs | `data/per-campaign-summary.csv` (rows whose `dominant_finding_class` is not `infrastructure`); see also `data/anc/methodology-timeline.md` for partition rationale | — |
 | 97 infrastructure-hardening rounds | §1, §3 | `data/per-campaign-summary.csv` (rows whose `dominant_finding_class` is `infrastructure`) | — |
+| Eight paper-trade panel snapshot (Table 3) | §4 Worked Examples, App B | `data/anc/dashboard-snapshot-2026-05-07.json` (8 panels × {n, win_rate, cum_pnl, sharpe, gate_attribution}) | `python3 -c "import json; d=json.load(open('data/anc/dashboard-snapshot-2026-05-07.json')); print(len(d['panels']),'panels; live_mode_active=',d['live_execution_status']['live_mode_active'])"` |
 
 ## B. Gates I+II — sourceability and fillability (§4)
 
